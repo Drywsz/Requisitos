@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Requisitos Não Funcionais</title>
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif;}
+body {background: linear-gradient(to bottom right,#ebf4ff,#c7d2fe); min-height:100vh; display:flex; flex-direction:column; align-items:center;}
+
+header.navbar {
+  position: fixed; top:0; left:0; width:100%; background:#2563eb; color:white;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; padding:14px 20px;
+  z-index:10; box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+header.navbar h1 { font-size:20px; flex:1; text-align:left; font-weight:bold; }
+nav { display:flex; gap:20px; justify-content:center; flex:1; }
+nav a { color:white; text-decoration:none; font-weight:bold; padding:6px 10px; border-radius:5px; transition:0.3s; }
+nav a:hover { background:rgba(255,255,255,0.2); }
+nav a.active { border-bottom:3px solid #facc15; }
+.search-bar { flex:1; display:flex; justify-content:center; }
+.search-bar input { padding:8px 12px; border:none; border-radius:20px; max-width:300px; width:100%; }
+
+main { padding:140px 20px 60px; width:100%; max-width:900px; flex:1; }
+
+.slide-container {
+  background:white;
+  border-radius:16px;
+  padding:40px 30px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  min-height:250px;
+  max-height:300px;
+  position:relative;
+  overflow:hidden;
+}
+
+.slide { position:absolute; top:0; left:0; width:100%; opacity:0; transition: opacity 0.5s ease-in-out; }
+.slide.active { opacity:1; position:relative; }
+
+h1.slide-title { color:#1e3a8a; font-size:24px; margin-bottom:10px; }
+p.slide-content { color:#374151; margin-bottom:15px; font-size:16px; }
+
+ul.slide-items { list-style:none; padding-left:0; }
+ul.slide-items li { display:flex; align-items:start; margin-bottom:10px; color:#374151; }
+ul.slide-items li span.icon { background:#bfdbfe; color:#1e3a8a; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; margin-right:10px; flex-shrink:0; font-size:12px;}
+
+.controls { display:flex; justify-content:space-between; margin-top:20px; }
+button { padding:10px 20px; border:none; border-radius:8px; font-size:16px; cursor:pointer; background:#2563eb; color:white; transition:0.3s; }
+button:hover { background:#1e40af; }
+button.hidden { visibility:hidden; }
+
+.indicators {
+  display:flex;
+  gap:6px;
+  justify-content:center;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+.indicators button { width:12px; height:12px; border-radius:50%; border:none; background:#cbd5e1; cursor:pointer; transition:0.3s; }
+.indicators button.active { background:#2563eb; }
+
+footer {
+  background:#1e3a8a;
+  color:#dbeafe;
+  text-align:center;
+  padding:15px;
+  font-size:14px;
+  width:100%;
+  border-radius:0;
+}
+
+.guide-btn {
+  display:block;
+  margin:20px auto 0;
+  padding:10px 20px;
+  background:#facc15;
+  color:#1e3a8a;
+  font-weight:bold;
+  text-align:center;
+  border-radius:8px;
+  text-decoration:none;
+  transition:0.3s;
+}
+.guide-btn:hover { background:#eab308; }
+
+@media(max-width:700px){
+  main{padding:180px 15px 60px;}
+  .slide-container{padding:30px 20px;}
+  h1.slide-title{font-size:20px;}
+  p.slide-content{font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <h1>CNH Digital</h1>
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Pesquisar">
+  </div>
+  <nav>
+    <a href="index.html">Funcionais</a>
+    <a href="nao-funcionais.html" class="active">Não Funcionais</a>
+    <a href="obter-cnh.html">Guia CNH</a>
+  </nav>
+</header>
+
+<main>
+  <div class="slide-container" id="slide-container"></div>
+
+  <div class="controls">
+    <button id="prev" class="hidden">Anterior</button>
+    <button id="next">Próximo</button>
+  </div>
+
+  <div class="indicators" id="indicators"></div>
+
+  <a href="obter-cnh.html" class="guide-btn">Ir para Guia de Obtenção da CNH</a>
+</main>
+
+<footer>
+  <p>📘 Projeto Educacional de Trânsito | Apresentação Acadêmica</p>
+</footer>
+
+<script>
+// Dados dos slides não funcionais
+const slidesData = [
+  {
+    title: "Requisitos Não Funcionais",
+    content: "Como o sistema deve se comportar",
+    items: [
+      "Design simples, equilibrado ou dinâmico",
+      "Uso equilibrado de ícones e imagens ilustrativas",
+      "Esquema de cores agradável (escuras, vibrantes ou equilibradas)",
+      "Compatibilidade com dispositivos móveis (mobile-first)",
+      "Boa usabilidade e acessibilidade",
+      "Tempo de resposta rápido mesmo com mídias",
+      "Conteúdos claros e objetivos",
+      "Segurança no armazenamento e envio de dados"
+    ]
+  }
+];
+
+// Flatten: um item por slide
+const flattenedSlides = slidesData.flatMap(slide => 
+  slide.items.map(item => ({ title: slide.title, content: slide.content, item }))
+);
+
+let currentSlide = 0;
+const container = document.getElementById("slide-container");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const indicators = document.getElementById("indicators");
+
+function renderSlide(index){
+  container.innerHTML = "";
+  const s = flattenedSlides[index];
+  const div = document.createElement("div");
+  div.classList.add("slide","active");
+  div.innerHTML = `<h1 class="slide-title">${s.title}</h1>
+                   <p class="slide-content">${s.content}</p>
+                   <ul class="slide-items"><li><span class="icon">&#10003;</span>${s.item}</li></ul>`;
+  container.appendChild(div);
+
+  prevBtn.classList.toggle("hidden", index===0);
+  nextBtn.classList.toggle("hidden", index===flattenedSlides.length-1);
+
+  indicators.innerHTML = "";
+  flattenedSlides.forEach((_,i)=>{
+    const btn = document.createElement("button");
+    if(i===index) btn.classList.add("active");
+    btn.addEventListener("click", ()=>{ currentSlide=i; renderSlide(i); });
+    indicators.appendChild(btn);
+  });
+}
+
+// Inicial
+renderSlide(currentSlide);
+
+// Navegação
+prevBtn.addEventListener("click", ()=>{
+  if(currentSlide>0){ currentSlide--; renderSlide(currentSlide); }
+});
+nextBtn.addEventListener("click", ()=>{
+  if(currentSlide<flattenedSlides.length-1){ currentSlide++; renderSlide(currentSlide); }
+});
+
+// Pesquisa
+document.getElementById("search").addEventListener("input", e=>{
+  const termo = e.target.value.toLowerCase();
+  const index = flattenedSlides.findIndex(s => s.item.toLowerCase().includes(termo));
+  if(index!==-1){ currentSlide=index; renderSlide(index); }
+});
+</script>
+
+</body>
+</html>

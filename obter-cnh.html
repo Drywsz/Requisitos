@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obtenção da CNH</title>
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif;}
+body {background: linear-gradient(to bottom right,#ebf4ff,#c7d2fe); min-height:100vh; display:flex; flex-direction:column; align-items:center;}
+
+header.navbar {
+  position: fixed; top:0; left:0; width:100%; background:#2563eb; color:white;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; padding:14px 20px;
+  z-index:10; box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+header.navbar h1 { font-size:20px; flex:1; text-align:left; font-weight:bold; }
+nav { display:flex; gap:20px; justify-content:center; flex:1; }
+nav a { color:white; text-decoration:none; font-weight:bold; padding:6px 10px; border-radius:5px; transition:0.3s; }
+nav a:hover { background:rgba(255,255,255,0.2); }
+nav a.active { border-bottom:3px solid #facc15; }
+.search-bar { flex:1; display:flex; justify-content:center; }
+.search-bar input { padding:8px 12px; border:none; border-radius:20px; max-width:300px; width:100%; }
+
+main { padding:140px 20px 60px; width:100%; max-width:900px; flex:1; }
+
+.content-section {
+  background:white;
+  border-radius:16px;
+  padding:30px 25px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom:20px;
+}
+
+h2 { color:#1e3a8a; margin-bottom:10px; }
+p { color:#374151; margin-bottom:12px; line-height:1.5; }
+ul { margin-left:20px; color:#374151; margin-bottom:12px; }
+li { margin-bottom:8px; }
+
+footer {
+  background:#1e3a8a;
+  color:#dbeafe;
+  text-align:center;
+  padding:15px;
+  font-size:14px;
+  width:100%;
+  border-radius:0;
+}
+
+@media(max-width:700px){
+  main{padding:180px 15px 60px;}
+  h2{font-size:18px;}
+  p, li{font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <h1>CNH Digital</h1>
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Pesquisar">
+  </div>
+  <nav>
+    <a href="index.html">Funcionais</a>
+    <a href="nao-funcionais.html">Não Funcionais</a>
+    <a href="obter-cnh.html" class="active">Obtenção CNH</a>
+  </nav>
+</header>
+
+<main>
+  <div class="content-section">
+    <h2>Introdução</h2>
+    <p>Obter a CNH (Carteira Nacional de Habilitação) é um processo estruturado que garante que o condutor esteja apto para dirigir com segurança. A CNH é dividida em etapas teóricas e práticas, incluindo exames médicos e psicológicos.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Passos para Obtenção</h2>
+    <ul>
+      <li>Realizar exame médico e psicológico em clínicas credenciadas pelo Detran.</li>
+      <li>Inscrever-se em um curso teórico, presencial ou online, que aborda legislação, direção defensiva e primeiros socorros.</li>
+      <li>Realizar o exame teórico, sendo aprovado com pontuação mínima exigida.</li>
+      <li>Iniciar aulas práticas de direção em veículos do Detran ou autoescolas autorizadas.</li>
+      <li>Cumprir carga mínima de aulas práticas, incluindo estacionamento, baliza e direção em via pública.</li>
+      <li>Realizar exame prático de direção e ser aprovado.</li>
+      <li>Receber a CNH provisória, respeitando regras de restrição de pontuação.</li>
+      <li>Após período determinado, receber a CNH definitiva.</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>Dicas Importantes</h2>
+    <ul>
+      <li>Estude bastante a legislação de trânsito antes do exame teórico.</li>
+      <li>Faça simulações de provas online para praticar.</li>
+      <li>Pratique direção em diferentes condições climáticas e horários do dia.</li>
+      <li>Respeite sempre os limites de velocidade e regras de trânsito.</li>
+      <li>Mantenha calma durante os exames, eles são parte do aprendizado.</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>Documentos Necessários</h2>
+    <ul>
+      <li>Documento de identidade (RG ou CNH anterior)</li>
+      <li>CPF</li>
+      <li>Comprovante de residência</li>
+      <li>Foto recente</li>
+      <li>Laudo médico e psicológico</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <p>📘 Projeto Educacional de Trânsito | Apresentação Acadêmica</p>
+</footer>
+
+</body>
+</html>
